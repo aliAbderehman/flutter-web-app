@@ -196,7 +196,8 @@ List<Widget> swipeList = [
             ),
             DescriptionTxt(
               description:
-                  'Indulge in the rich flavors of Ethiopia with our \nexquisite Ethiopian coffee. Sourced from the birthplace\n of coffee itself.',
+                  'Explore our curated collection of top-tier electrical\n'
+                  'equipment and appliances.From cutting-edge gadgets to \nessential home essentials.',
               align: TextAlign.center,
             )
           ],
@@ -226,15 +227,15 @@ List<Widget> swipeList = [
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             MainTxt(
-              txt: 'Electrical Equipments',
+              txt: 'Elevate Your Tech Game:',
               align: TextAlign.end,
             ),
             SizedBox(
               height: 30,
             ),
             DescriptionTxt(
-              description:
-                  'Indulge in the rich flavors of Ethiopia with our \nexquisite Ethiopian coffee. Sourced from the birthplace\n of coffee itself.',
+              description: 'From powerful servers to sleek computers and robust'
+                  '\nserver racks, Noon delivers the backbone of modern\ntechnology infrastructure.',
               align: TextAlign.center,
             )
           ],

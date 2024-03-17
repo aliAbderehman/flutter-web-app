@@ -33,8 +33,8 @@ const String webAddress = 'www.ankabootechs.com';
 const String materials = 'assets/images/materials/';
 const String tel = '+251 921 986 249';
 const String address = 'Addis Ababa, Ethiopia';
-const String companyName = 'Noon Import & Export';
-const String companyNameShort = 'Noon';
+const String companyName = 'DMD Import & Export';
+const String companyNameShort = 'DMD';
 
 final facebookUrl = Uri.parse('https://www.facebook.com/abderehman.ali');
 final telegramUrl = Uri.parse('https://t.me/Musab4');
@@ -51,7 +51,7 @@ const itDesctiption =
     'Revolutionize your business\'s IT infrastructure with Noon Import and Export\'s premium selection of servers and data center racks. As a trusted provider of top-tier IT solutions, we specialize in importing high-performance equipment designed to meet the demanding needs of modern enterprises.\n';
 const machinesTitle = 'Electrical Equipments and Machineries\n';
 const machinesDescription =
-    'Revolutionize your business\'s IT infrastructure with Noon Import and Export\'s premium selection of servers and data center racks. As a trusted provider of top-tier IT solutions, we specialize in importing high-performance equipment designed to meet the demanding needs of modern enterprises.\n';
+    'Powering Your World: Explore our curated collection of top-tier electrical equipment and appliances. From cutting-edge gadgets to essential home essentials, Noon ensures seamless functionality and unmatched performance for every need. Discover innovation, reliability, and efficiency at your fingertips.\n';
 
 //desktop // // //
 
