@@ -1,4 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:uhh/costom_materials/footer.dart';
+import 'package:uhh/costom_materials/mobile_menu.dart';
 
 import '../constants.dart';
 import 'card.dart';
@@ -13,18 +17,19 @@ class OurWorks extends StatefulWidget {
   State<OurWorks> createState() => _OurWorksState();
 }
 
-class _OurWorksState extends State<OurWorks> {
+class _OurWorksState extends State<OurWorks> with TickerProviderStateMixin {
   late final OverlayPortalController _overlayController;
   late final OverlayPortalController _socialMediasController;
-  late final OverlayPortalController _cardOverlayController;
+  late AnimationController _controller;
 
   // Initialize overlay controllers when the state is initialized.
   @override
   void initState() {
     super.initState();
+    _controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 500));
     _overlayController = OverlayPortalController();
     _socialMediasController = OverlayPortalController();
-    _cardOverlayController = OverlayPortalController();
   }
 
   @override
@@ -33,99 +38,374 @@ class _OurWorksState extends State<OurWorks> {
     super.dispose();
   }
 
-  void triggerExpansion() {
-    setState(() {
-      if (isExpanded == false) {
-        isExpanded = true;
-      } else {
-        isExpanded = false;
-      }
-    });
-  }
-
   // Build the UI for the desktop body.
   @override
   Widget build(BuildContext context) {
     // Retrieve the screen width using MediaQuery.
     final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
 
     // Hide overlays if the screen width is less than 700.
-    if (screenWidth < 665) {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        _overlayController.hide();
-        _socialMediasController.hide();
-      });
-    } else {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        _overlayController.show();
-        _socialMediasController.show();
-      });
-    }
-
+    adjustScreen(
+        screenWidth: screenWidth,
+        overlayController: _overlayController,
+        socialMediasController: _socialMediasController);
     // Construct the scaffold containing the desktop UI components.
 
+    print(screenWidth);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
+      extendBodyBehindAppBar: true,
+      onEndDrawerChanged: (isOpened) {
+        if (!isOpened) {
+          _controller.reverse();
+        }
+      },
+      endDrawer: screenWidth < 750
+          ? CustomEndDrawer(
+              screenWidth: screenWidth,
+            )
+          : null,
+      appBar: screenWidth < 750 ? CustomAppBar(controller: _controller) : null,
       body: SingleChildScrollView(
         child: Column(
+          // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SocialMedias(
-              socialMediasController: _socialMediasController,
-            ),
-            HeaderActions(
-              overlayController: _overlayController,
-            ),
-            // Container containing background image and other UI elements.
-            Container(
-              decoration: mainBoxDecoration(context),
-              child: Column(
+            SocialMedias(socialMediasController: _socialMediasController),
+            HeaderActions(overlayController: _overlayController),
+            SizedBox(
+              // height: 1700,
+              child: Stack(
                 children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 100, left: 20, right: 20),
-                    child: MySuperCard(
-                      title: 'Exotic Ethiopian Coffee',
-                      description:
-                          'Step into the world of Ethiopian coffee, where every sip is an expedition through centuries of tradition and a landscape rich with flavor. In the heart of the birthplace of coffee, where the ancient Abyssinian forests whisper tales of discovery, Ethiopian coffee captivates with its unparalleled complexity and depth.'
-                          'Embark on a sensory journey as you indulge in the rich aroma that wafts from freshly roasted Ethiopian beans, carrying hints of floral notes, fruity undertones, and earthy nuances. Each cup is a masterpiece, meticulously crafted through generations of expertise and a profound connection to the land.'
-                          'Step into the world of Ethiopian coffee, where every sip is an expedition through centuries of tradition and a landscape rich with flavor. In the heart of the birthplace of coffee, where the ancient Abyssinian forests whisper tales of discovery, Ethiopian coffee captivates with its unparalleled complexity and depth.',
-                      isExpanded: isExpanded, leadingImg: tileCoffee,
-                      // onTap: triggerExpansion,
+                  const BackgroundImage01(),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 80),
+                      child: SizedBox(
+                        // width: 700,
+                        child: Text(
+                          'Exploring Our Expertise\nInnovating in Imports, Excelling in Exports',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: screenWidth > 1000 ? 40 : 30,
+                            fontFamily: 'MetropolisReg',
+                            fontWeight: FontWeight.w400,
+                            color: const Color(0xfff3f3f3),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 50, left: 20, right: 20),
-                    child: MySuperCard(
-                      title: 'Electrical Equipments and Appeliances',
-                      description:
-                          'Welcome to the electrifying realm of electrical equipment and appliances, where innovation meets functionality in a symphony of modern convenience and cutting-edge technology. Step into a world where the mundane is transformed into the extraordinary, where the flick of a switch ignites a cascade of power and possibility.'
-                          'From sleek kitchen marvels that turn culinary dreams into reality to indispensable gadgets that streamline our daily lives, electrical appliances are the unsung heroes of the modern age. With their sleek designs and intuitive interfaces, they seamlessly integrate into our homes, enhancing efficiency and elevating the mundane tasks of daily life to moments of joy.',
-                      isExpanded: isExpanded, leadingImg: tileMachines,
-                      // onTap: triggerExpansion,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        top: 50, left: 20, right: 20, bottom: 50),
-                    child: MySuperCard(
-                      title: 'IT Equipments',
-                      description:
-                          'Welcome to the electrifying realm of electrical equipment and appliances, where innovation meets functionality in a symphony of modern convenience and cutting-edge technology. Step into a world where the mundane is transformed into the extraordinary, where the flick of a switch ignites a cascade of power and possibility.'
-                          'From sleek kitchen marvels that turn culinary dreams into reality to indispensable gadgets that streamline our daily lives, electrical appliances are the unsung heroes of the modern age. With their sleek designs and intuitive interfaces, they seamlessly integrate into our homes, enhancing efficiency and elevating the mundane tasks of daily life to moments of joy.',
-                      isExpanded: isExpanded, leadingImg: tileMachines,
-                      // onTap: triggerExpansion,
-                    ),
-                  ),
+
+                  // Text.rich(TextSpan)
                 ],
               ),
             ),
-
-            FooterContainer(),
+            screenWidth > 1080
+                ? const DesktopOurWorksWidget()
+                : const MobileOurWorksWidget(),
+            const FooterContainer(),
           ],
         ),
       ),
     );
+  }
+}
+
+class DesktopOurWorksWidget extends StatelessWidget {
+  const DesktopOurWorksWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 50),
+          child: RowCard(
+            title: coffeTitle,
+            description: coffeDescription,
+            secondaryChild: ImageTopTitle(),
+            mode: 1,
+            child: CoffeeImages(),
+          ),
+        ),
+
+        //it section
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 50),
+          child: RowCard(
+            title: itTitle,
+            description: itDesctiption,
+            mode: 2,
+            child: Image(
+                height: 420, image: AssetImage('${materials}component_12.png')),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 50),
+          child: RowCard(
+            title: machinesTitle,
+            description: machinesDescription,
+            mode: 1,
+            child: Image(
+                height: 420, image: AssetImage('${materials}machines_01.png')),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class ImageTopTitle extends StatelessWidget {
+  const ImageTopTitle({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      height: 150,
+      width: 160,
+      child: DescriptionContainer(
+        child: Text.rich(
+          textAlign: TextAlign.center,
+          TextSpan(
+            text: '100%\nOrganic',
+            style: TextStyle(
+              fontSize: 40,
+              fontFamily: 'MetropolisReg',
+              fontWeight: FontWeight.w400,
+              color: Color(0xfff3f3f3),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class MobileOurWorksWidget extends StatelessWidget {
+  const MobileOurWorksWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const SizedBox(
+          height: 50,
+        ),
+        const Stack(
+          alignment: Alignment.center,
+          children: [
+            SizedBox(height: 420, width: 420, child: CoffeeImages()),
+            ImageTopTitle(),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.all(40),
+          child: Text.rich(TextSpan(
+              text: coffeTitle,
+              style: TextStyle(
+                fontSize: 30,
+                fontFamily: 'MetropolisReg',
+                fontWeight: FontWeight.w400,
+                color: isDarkTheme(context)
+                    ? const Color(0xfff3f3f3)
+                    : const Color(0xff1e1e24),
+              ),
+              children: const [
+                TextSpan(text: coffeDescription, style: TextStyle(fontSize: 20))
+              ])),
+        ),
+        const Image(
+            height: 420, image: AssetImage('${materials}component_12.png')),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 40),
+          child: Text.rich(TextSpan(
+              text: itTitle,
+              style: TextStyle(
+                fontSize: 30,
+                fontFamily: 'MetropolisReg',
+                fontWeight: FontWeight.w400,
+                color: isDarkTheme(context)
+                    ? const Color(0xfff3f3f3)
+                    : const Color(0xff1e1e24),
+              ),
+              children: const [
+                TextSpan(text: itDesctiption, style: TextStyle(fontSize: 20))
+              ])),
+        ),
+        const Image(
+            height: 420, image: AssetImage('${materials}machines_01.png')),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 40),
+          child: Text.rich(TextSpan(
+              text: machinesTitle,
+              style: TextStyle(
+                fontSize: 30,
+                fontFamily: 'MetropolisReg',
+                fontWeight: FontWeight.w400,
+                color: isDarkTheme(context)
+                    ? const Color(0xfff3f3f3)
+                    : const Color(0xff1e1e24),
+              ),
+              children: const [
+                TextSpan(
+                    text: machinesDescription, style: TextStyle(fontSize: 20))
+              ])),
+        ),
+      ],
+    );
+  }
+}
+
+class CoffeeImages extends StatelessWidget {
+  const CoffeeImages({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Row(
+      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+            padding: EdgeInsets.only(right: 10),
+            child: Image(
+              width: 200,
+              height: 420,
+              fit: BoxFit.cover,
+              image: AssetImage('${materials}component_11.png'),
+            )),
+        Column(
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(left: 10, bottom: 10),
+              child: Image(
+                width: 200,
+                height: 200,
+                image: AssetImage('${materials}component_9.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 10, top: 10),
+              child: Image(
+                width: 200,
+                height: 200,
+                image: AssetImage('${materials}component_10.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class RowCard extends StatelessWidget {
+  const RowCard({
+    super.key,
+    required this.child,
+    required this.title,
+    required this.description,
+    this.secondaryChild,
+    required this.mode,
+  });
+  final Widget child;
+  final String title;
+  final String description;
+  final Widget? secondaryChild;
+  final int mode;
+
+  @override
+  Widget build(BuildContext context) {
+    return mode == 1
+        ? Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  SizedBox(
+                    width: 420,
+                    height: 420,
+                    child: child,
+                  ),
+                  secondaryChild ?? const SizedBox(),
+                ],
+              ),
+              Flexible(
+                fit: FlexFit.loose,
+                child: SizedBox(
+                  width: 700,
+                  child: Text.rich(TextSpan(
+                      text: title,
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontFamily: 'MetropolisReg',
+                        fontWeight: FontWeight.w400,
+                        color: isDarkTheme(context)
+                            ? const Color(0xfff3f3f3)
+                            : const Color(0xff1e1e24),
+                      ),
+                      children: [
+                        TextSpan(
+                            text: description,
+                            style: const TextStyle(fontSize: 20))
+                      ])),
+                ),
+              )
+            ],
+          )
+        : Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Flexible(
+                fit: FlexFit.loose,
+                child: SizedBox(
+                  width: 700,
+                  child: Text.rich(TextSpan(
+                      text: title,
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontFamily: 'MetropolisReg',
+                        fontWeight: FontWeight.w400,
+                        color: isDarkTheme(context)
+                            ? const Color(0xfff3f3f3)
+                            : const Color(0xff1e1e24),
+                      ),
+                      children: [
+                        TextSpan(
+                            text: description,
+                            style: const TextStyle(fontSize: 20))
+                      ])),
+                ),
+              ),
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  SizedBox(
+                    width: 420,
+                    height: 420,
+                    child: child,
+                  ),
+                  secondaryChild ?? const SizedBox(),
+                ],
+              ),
+            ],
+          );
   }
 }

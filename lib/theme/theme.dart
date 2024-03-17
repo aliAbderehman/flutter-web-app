@@ -10,7 +10,7 @@ ThemeData lightMode = ThemeData(
     background: Color.fromARGB(255, 226, 226, 226),
     secondary: Color.fromARGB(255, 198, 242, 255),
     tertiary: Color(0xff00D3FF),
-    primaryContainer: Color.fromARGB(255, 8, 129, 154),
+    primaryContainer: Color(0xff0B394E),
     secondaryContainer: Color.fromARGB(255, 226, 226, 226),
   ),
   outlinedButtonTheme: OutlinedButtonThemeData(
@@ -22,13 +22,13 @@ ThemeData lightMode = ThemeData(
   textTheme: const TextTheme(
     displaySmall: TextStyle(
       color: Color.fromARGB(255, 255, 255, 255),
-      fontSize: 20,
+      fontSize: 25,
       fontFamily: 'MetropolisReg',
       fontWeight: FontWeight.normal,
     ),
     displayLarge: TextStyle(
       color: Color.fromARGB(255, 255, 255, 255),
-      fontSize: 40,
+      fontSize: 55,
       fontFamily: 'Metropolis',
     ),
     displayMedium: TextStyle(
@@ -36,15 +36,17 @@ ThemeData lightMode = ThemeData(
       fontSize: 20,
       fontFamily: 'Metropolis',
     ),
+    labelMedium:
+        TextStyle(fontSize: 20, color: Color.fromARGB(255, 162, 162, 162)),
     bodySmall: TextStyle(
       fontFamily: 'MetropolisReg',
       fontSize: 25,
       color: Color(0xff114052),
     ),
     bodyMedium: TextStyle(
-      color: Color(0xFF94EBFC),
-      fontSize: 20,
+      color: Color(0xff114052),
       fontFamily: 'MetropolisReg',
+      fontSize: 25,
     ),
     bodyLarge: TextStyle(
       fontSize: 25,
@@ -75,13 +77,15 @@ ThemeData darkMode = ThemeData(
   textTheme: const TextTheme(
     displaySmall: TextStyle(
       color: Color(0xFFB9CCD0),
-      fontSize: 20,
+      fontSize: 25,
       fontFamily: 'MetropolisReg',
       fontWeight: FontWeight.normal,
     ),
+    labelMedium:
+        TextStyle(fontSize: 20, color: Color.fromARGB(255, 162, 162, 162)),
     displayLarge: TextStyle(
       color: Color(0xFFB9CCD0),
-      fontSize: 40,
+      fontSize: 55,
       fontFamily: 'Metropolis',
     ),
     displayMedium: TextStyle(

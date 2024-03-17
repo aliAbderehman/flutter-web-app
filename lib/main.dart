@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uhh/contact_us_page.dart';
 import 'package:uhh/platform/abouts.dart';
 import 'package:uhh/platform/contact_us.dart';
 import 'package:uhh/platform/our_works.dart';
@@ -31,13 +32,17 @@ class MyApp extends StatelessWidget {
           theme: lightMode,
           darkTheme: darkMode,
           themeMode: provider.themeMode,
-          // home: OurWorks(),
-          initialRoute: '/contact_us',
+          // home: const ContactUs(),
+          initialRoute: '/',
           routes: {
             '/': (context) => const MyHomePage(),
             '/about': (context) => const Abouts(),
+            '/contact_us_page': (context) => const ContactUs(),
+
+            // '/mobile_contact_us_page': (context) => const MobileContactUs(),
             '/our_work_page': (context) => const OurWorks(),
-            '/contact_us': (context) => const ContactUs(),
+
+            // '/contact_us': (context) => const ContactUs(),
           },
         );
       },

@@ -93,12 +93,14 @@ List<Widget> mobileSwipeList = [
 
 List<Widget> swipeList = [
   Container(
-    alignment: Alignment.topRight,
+    width: 1000,
+    height: 300,
+    alignment: Alignment.centerRight,
     child: const Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         MainTxt(
-          txt: 'Noon Import & \nExport',
+          txt: 'Welcome to Noon',
           align: TextAlign.end,
         ),
         SizedBox(
@@ -121,30 +123,43 @@ List<Widget> swipeList = [
 
   // coffe image with description
   Container(
+    width: 1000,
+    height: 300,
     alignment: Alignment.topRight,
     decoration: const BoxDecoration(
+      // color: Colors.red,
       image: DecorationImage(
         // scale: 1,
         alignment: Alignment.centerLeft,
+        // scale: 1,
 
         image: AssetImage('assets/images/materials/coffe_03.png'),
       ),
     ),
-    child: const Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+    child: const Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        MainTxt(
-          txt: 'Exotic Ethiopian Cofffee',
-          align: TextAlign.end,
-        ),
         SizedBox(
-          height: 20,
+          width: 200,
+          height: 300,
         ),
-        DescriptionTxt(
-          description:
-              'Indulge in the rich flavors of Ethiopia with our \nexquisite Ethiopian coffee. Sourced from the birthplace\n of coffee itself.',
-          align: TextAlign.center,
-        )
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            MainTxt(
+              txt: 'Exotic Ethiopian Cofffee',
+              align: TextAlign.end,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            DescriptionTxt(
+              description:
+                  'Indulge in the rich flavors of Ethiopia with our exquisite \nEthiopian coffee. Sourced from the birthplace of coffee itself.',
+              align: TextAlign.center,
+            )
+          ],
+        ),
       ],
     ),
   ),
@@ -152,6 +167,8 @@ List<Widget> swipeList = [
   // machine picture swipable
 
   Container(
+    width: 1000,
+    height: 250,
     alignment: Alignment.topRight,
     decoration: const BoxDecoration(
       image: DecorationImage(
@@ -160,21 +177,68 @@ List<Widget> swipeList = [
         image: AssetImage('assets/images/materials/machines_01.png'),
       ),
     ),
-    child: const Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+    child: const Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        MainTxt(
-          txt: 'Electrical Equipments',
-          align: TextAlign.end,
-        ),
         SizedBox(
-          height: 30,
+          width: 200,
+          height: 300,
         ),
-        DescriptionTxt(
-          description:
-              'Indulge in the rich flavors of Ethiopia with our \nexquisite Ethiopian coffee. Sourced from the birthplace\n of coffee itself.',
-          align: TextAlign.center,
-        )
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            MainTxt(
+              txt: 'Electrical Equipments',
+              align: TextAlign.end,
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            DescriptionTxt(
+              description:
+                  'Indulge in the rich flavors of Ethiopia with our \nexquisite Ethiopian coffee. Sourced from the birthplace\n of coffee itself.',
+              align: TextAlign.center,
+            )
+          ],
+        ),
+      ],
+    ),
+  ),
+  Container(
+    width: 1000,
+    height: 250,
+    alignment: Alignment.topRight,
+    decoration: const BoxDecoration(
+      image: DecorationImage(
+        // scale: 4,
+        alignment: Alignment.centerLeft,
+        image: AssetImage('assets/images/materials/component_12.png'),
+      ),
+    ),
+    child: const Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        SizedBox(
+          width: 200,
+          height: 300,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            MainTxt(
+              txt: 'Electrical Equipments',
+              align: TextAlign.end,
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            DescriptionTxt(
+              description:
+                  'Indulge in the rich flavors of Ethiopia with our \nexquisite Ethiopian coffee. Sourced from the birthplace\n of coffee itself.',
+              align: TextAlign.center,
+            )
+          ],
+        ),
       ],
     ),
   ),

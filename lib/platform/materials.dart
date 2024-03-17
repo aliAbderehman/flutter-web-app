@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:popover/popover.dart';
 import 'package:uhh/constants.dart';
@@ -8,6 +6,7 @@ import 'package:uhh/theme/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // bool val = false;
 var brightness =
@@ -35,10 +34,13 @@ class _MainHeaderState extends State<MainHeader> {
           Align(
             alignment: Alignment.topLeft,
             child: IconButton(
-              iconSize: 50,
-              hoverColor: const Color(0xff1e1e24),
-              icon: Image.asset(
-                'assets/images/materials/main_logo_02.png',
+              iconSize: 10,
+              hoverColor: Colors.transparent,
+              icon: SizedBox(
+                height: 50,
+                child: Image.asset(
+                  mainLogo,
+                ),
               ),
               onPressed: () {
                 Navigator.of(context).pushNamed('/');
@@ -47,83 +49,102 @@ class _MainHeaderState extends State<MainHeader> {
           ),
           ////
 
-          BlurryContainer(
-            elevation: 3,
-            blur: 4,
-            color: Theme.of(context).brightness == Brightness.dark
-                ? const Color.fromARGB(50, 0, 0, 0)
-                : const Color.fromARGB(29, 5, 119, 212),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Transform.scale(
-                  scale: 1.2,
-                  child: Consumer<ThemeProvider>(
-                      builder: (context, provider, child) {
-                    return Switch(
-                      activeThumbImage: const AssetImage(
-                          'assets/images/materials/dark_mode_02.png'),
-                      inactiveThumbImage: const AssetImage(
-                          'assets/images/materials/light_mode_02.png'),
-                      activeColor: const Color(0xff000000),
-                      activeTrackColor: const Color(0xff4D4D4D),
-                      inactiveThumbColor: const Color(0xff15688C),
-                      inactiveTrackColor: const Color(0xff01212E),
-                      onChanged: (bool value) {
-                        provider.changeTheme(value ? 'dark' : 'light');
+          AnimatedSwitcher(
+            duration: const Duration(seconds: 1),
+            child: BlurryContainer(
+              key: Key(Theme.of(context).brightness.toString()),
+              height: 50,
+              // width: 400,
+              elevation: 3,
+              blur: 4,
+              color: isDarkTheme(context)
+                  ? const Color.fromARGB(50, 0, 0, 0)
+                  : const Color.fromARGB(29, 5, 119, 212),
+              child: Row(
+                // mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Transform.scale(
+                    scale: 0.8,
+                    child: Consumer<ThemeProvider>(
+                        builder: (context, provider, child) {
+                      return AnimatedSwitcher(
+                        duration: const Duration(seconds: 1),
+                        child: Switch(
+                          key: Key(Theme.of(context).brightness.toString()),
+                          thumbIcon: MaterialStatePropertyAll(Icon(
+                              Theme.of(context).brightness == Brightness.light
+                                  ? Icons.light_mode
+                                  : Icons.dark_mode)),
+                          activeColor: const Color.fromARGB(255, 113, 113, 113),
+                          activeTrackColor:
+                              Theme.of(context).colorScheme.background,
+                          inactiveThumbColor: const Color(0xff15688C),
+                          inactiveTrackColor: const Color(0xff01212E),
+                          trackOutlineColor: MaterialStatePropertyAll(
+                            Theme.of(context).colorScheme.secondary,
+                          ),
+                          onChanged: (bool value) {
+                            provider.changeTheme(value ? 'dark' : 'light');
 
-                        val = value;
-                      },
-                      value: val,
-                    );
-                  }),
-                ),
-                HeaderTextButton(
-                  title: 'Home',
-                  rout: '',
-                  isPressed: () {
-                    print('whaaat');
-                    Navigator.pushNamed(context, '/');
-                  },
-                ),
-                HeaderTextButton(
-                  title: 'About',
-                  rout: '',
-                  isPressed: () {
-                    print('whaaat');
-                    Navigator.pushNamed(context, '/about');
-                  },
-                ),
-                HeaderTextButton(
-                  title: 'Language',
-                  rout: '',
-                  isPressed: () {
-                    showPopover(
-                        context: context,
-                        bodyBuilder: (context) => const MenuItems(),
-                        height: 100,
-                        width: 150,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.background);
-                  },
-                ),
-                HeaderTextButton(
-                  title: 'Our Works',
-                  rout: '/our_work_page',
-                  isPressed: () {
-                    Navigator.pushNamed(context, '/our_work_page');
-                  },
-                ),
-                ContactButton(
-                    child: const Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Text(
-                        'CONTACTS',
-                        style: TextStyle(color: Colors.white, fontSize: 20),
+                            val = value;
+                          },
+                          value: val,
+                        ),
+                      );
+                    }),
+                  ),
+                  HeaderTextButton(
+                    title: 'Home',
+                    rout: '',
+                    isPressed: () {
+                      // print('whaaat');
+                      Navigator.pushNamed(context, '/');
+                    },
+                    // icon: Icons.home_outlined,
+                  ),
+                  HeaderTextButton(
+                    title: 'About',
+                    rout: '',
+                    isPressed: () {
+                      Navigator.pushNamed(context, '/about');
+                    },
+                    // icon: Icons.info_outline,
+                  ),
+                  HeaderTextButton(
+                    title: 'Language',
+                    rout: '',
+                    isPressed: () {
+                      showPopover(
+                          context: context,
+                          bodyBuilder: (context) => const MenuItems(),
+                          height: 100,
+                          width: 150,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.background);
+                    },
+                    // icon: Icons.language_rounded,
+                  ),
+                  HeaderTextButton(
+                    title: 'Our Works',
+                    rout: '/our_work_page',
+                    isPressed: () {
+                      Navigator.pushNamed(context, '/our_work_page');
+                    },
+                    // icon: Icons.work,
+                  ),
+                  ContactButton(
+                      child: const Padding(
+                        padding: EdgeInsets.all(5.0),
+                        child: Text(
+                          'CONTACTS',
+                          style: TextStyle(color: Colors.white, fontSize: 15),
+                        ),
                       ),
-                    ),
-                    onTap: () {})
-              ],
+                      onTap: () {
+                        Navigator.pushNamed(context, '/contact_us_page');
+                      })
+                ],
+              ),
             ),
           ),
         ],
@@ -143,7 +164,7 @@ class MenuItems extends StatelessWidget {
         TextButton(
           onPressed: () {
             Navigator.of(context)
-                .pushNamedAndRemoveUntil('/homepage', (Route route) => false);
+                .pushNamedAndRemoveUntil('/', (Route route) => false);
           },
           child: Text(
             'English',
@@ -186,11 +207,13 @@ class HeaderTextButton extends StatefulWidget {
     required this.title,
     required this.rout,
     required this.isPressed,
+    // required this.icon,
   });
 
   final String title;
   final String rout;
   final VoidCallback isPressed;
+  // final IconData icon;
 
   @override
   State<HeaderTextButton> createState() => _HeaderTextButtonState();
@@ -200,7 +223,7 @@ class _HeaderTextButtonState extends State<HeaderTextButton> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(5.0),
       child: TextButton(
           style: TextButton.styleFrom(
             foregroundColor: Theme.of(context).colorScheme.secondary,
@@ -216,16 +239,11 @@ class _HeaderTextButtonState extends State<HeaderTextButton> {
                           Theme.of(context).colorScheme.background);
                 }
               : widget.isPressed,
-          // if (title == 'Language') {
-          //   showPopover(
-          //       context: context,
-          //       bodyBuilder: (context) => MenuItems(),
-          //       height: 100,
-          //       width: 150,
-          //       backgroundColor: Theme.of(context).colorScheme.background);
-          // }
-          // },
-          child: Text(widget.title)),
+          child: Row(
+            children: [
+              Text(widget.title),
+            ],
+          )),
     );
   }
 }
@@ -264,11 +282,11 @@ class MyOutlinedButton extends StatelessWidget {
 }
 
 class HeaderActions extends StatelessWidget {
-  HeaderActions({
+  const HeaderActions({
     super.key,
     required this.overlayController,
   });
-  OverlayPortalController overlayController;
+  final OverlayPortalController overlayController;
   @override
   Widget build(BuildContext context) {
     return OverlayPortal(
@@ -282,8 +300,8 @@ class HeaderActions extends StatelessWidget {
 }
 
 class SocialMedias extends StatefulWidget {
-  SocialMedias({super.key, required this.socialMediasController});
-  OverlayPortalController socialMediasController;
+  const SocialMedias({super.key, required this.socialMediasController});
+  final OverlayPortalController socialMediasController;
 
   @override
   State<SocialMedias> createState() => _SocialMediasState();
@@ -304,7 +322,7 @@ class _SocialMediasState extends State<SocialMedias> {
             child: MouseRegion(
               onEnter: (event) {
                 setState(() {
-                  focused = const socialMediasHovered();
+                  focused = const SocialMediasHovered();
                 });
               },
               onExit: (event) {
@@ -328,18 +346,18 @@ class _SocialMediasState extends State<SocialMedias> {
   }
 }
 
-class socialMediasHovered extends StatefulWidget {
-  const socialMediasHovered({
+class SocialMediasHovered extends StatefulWidget {
+  const SocialMediasHovered({
     super.key,
   });
 
   @override
-  State<socialMediasHovered> createState() => _socialMediasHoveredState();
+  State<SocialMediasHovered> createState() => _SocialMediasHoveredState();
 }
 
 // String icn = fbInactive;
 
-class _socialMediasHoveredState extends State<socialMediasHovered> {
+class _SocialMediasHoveredState extends State<SocialMediasHovered> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -361,9 +379,24 @@ class _socialMediasHoveredState extends State<socialMediasHovered> {
           // crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SocialButton(icon: fbInactive),
-            SocialButton(icon: waInactive),
-            SocialButton(icon: tgInactive),
+            GestureDetector(
+                onTap: () async {
+                  final url = Uri(scheme: 'mailto', path: emailAddress);
+                  if (await canLaunchUrl(url)) {
+                    launchUrl(url);
+                  }
+                },
+                child: const SocialButton(icon: '${materials}email.png')),
+            GestureDetector(
+                onTap: () {
+                  launchUrl(whatsappUrl);
+                },
+                child: const SocialButton(icon: '${materials}whatsapp.png')),
+            GestureDetector(
+                onTap: () {
+                  launchUrl(telegramUrl);
+                },
+                child: const SocialButton(icon: '${materials}telegram.png')),
           ],
         ));
   }
@@ -387,7 +420,7 @@ class _SocialButtonState extends State<SocialButton> {
     super.initState();
   }
 
-  Color icnColor = Colors.black;
+  Color icnColor = const Color.fromARGB(255, 57, 85, 104);
 
   @override
   Widget build(BuildContext context) {
@@ -405,20 +438,15 @@ class _SocialButtonState extends State<SocialButton> {
         onExit: (event) {
           setState(() {
             // icn = widget.inactive;
-            icnColor = Colors.black;
+            icnColor = const Color.fromARGB(255, 57, 85, 104);
           });
         },
-        child: GestureDetector(
-          onTap: () {
-            // print('tapped');
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              icn!,
-              scale: 1.5,
-              color: icnColor,
-            ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset(
+            icn!,
+            scale: 1.5,
+            color: icnColor,
           ),
         ),
       ),
@@ -450,135 +478,50 @@ class DisplayWidget extends StatelessWidget {
   }
 }
 
-class FooterContainer extends StatelessWidget {
-  const FooterContainer({
+class WhyUsDescription extends StatelessWidget {
+  const WhyUsDescription({
     super.key,
+    required this.title,
+    required this.description,
   });
+  final String title;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-    return BlurryContainer(
-      color: Theme.of(context).brightness == Brightness.dark
-          ? const Color.fromARGB(50, 0, 0, 0)
-          : const Color.fromARGB(57, 5, 119, 212),
-      // decoration: BoxDecoration(
-      //   borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
-      //   image: const DecorationImage(
-      //     image: AssetImage(
-      //       'assets/images/materials/fff.png',
-      //     ),
-      //     alignment: Alignment(0.95, 0),
-      //     scale: 2,
-      //   ),
-      //   gradient: Theme.of(context).brightness == Brightness.dark
-      //       ? const LinearGradient(
-      //           colors: [
-      //             Color.fromARGB(255, 24, 24, 24),
-      //             Color.fromARGB(255, 0, 0, 0),
-      //           ],
-      //           begin: Alignment.topLeft,
-      //           end: Alignment.bottomRight,
-      //         )
-      //       : const LinearGradient(
-      //           colors: [
-      //             Color(0xff115471),
-      //             Color(0xff072939),
-      //           ],
-      //           begin: Alignment.topLeft,
-      //           end: Alignment.bottomRight,
-      //         ),
-      //   boxShadow: const [
-      //     BoxShadow(
-      //         color: Color.fromARGB(83, 0, 0, 0),
-      //         offset: Offset(5, -9),
-      //         blurRadius: 10,
-      //         spreadRadius: 5),
-      //   ],
-      // ),
-      width: double.infinity,
-      height: screenHeight * 0.2,
-      // alignment: Alignment.bottomLeft,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+    return Text.rich(
+      TextSpan(
+        style: TextStyle(
+            fontFamily: 'Metropolis',
+            fontSize: 25,
+            color: Theme.of(context).colorScheme.secondary),
+        text: title,
         children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: SelectableText(
-                'Noon Import and Export 2024. Addis Ababa, Ethiopia\n'
-                'contact@noonie.com\n'
-                '+251-91-10-90-000',
-                style: Theme.of(context).textTheme.displaySmall,
-              ),
-            ),
-          ),
-          // const Padding(
-          //   padding: EdgeInsets.only(right: 60),
-          //   child: Image(image: AssetImage('assets/images/materials/fff.png')),
-          // )
+          const WidgetSpan(
+              child: SizedBox(
+            height: 30,
+          )),
+          TextSpan(
+            text: description,
+            style: Theme.of(context).brightness == Brightness.dark
+                ? Theme.of(context).textTheme.bodyMedium
+                : TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontFamily: 'MetropolisReg',
+                    fontSize: 25,
+                  ),
+          )
         ],
       ),
+      // textAlign: TextAlign.center,
+
+      // "Welcome to Noon Import and Export,\n"
+
+      // textAlign: TextAlign.center,
+      // style: Theme.of(context).textTheme.bodyMedium,
     );
   }
 }
-
-// class BigContactButton extends StatefulWidget {
-//   const BigContactButton({
-//     super.key,
-//   });
-
-//   @override
-//   State<BigContactButton> createState() => _BigContactButtonState();
-// }
-
-// class _BigContactButtonState extends State<BigContactButton> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return FocusableActionDetector(
-//       // autofocus: true,
-
-//       child: MouseRegion(
-//         cursor: SystemMouseCursors.click,
-//         onHover: (event) {
-//           setState(() {
-//             darkButton = 'assets/images/buttons/button_hovered_black.png';
-//             lightButton = 'assets/images/buttons/button_hovered.png';
-//           });
-//         },
-//         onExit: (event) {
-//           setState(() {
-//             lightButton = 'assets/images/buttons/contact_b_light_02.png';
-//             darkButton = 'assets/images/buttons/contact_b_dark_02.png';
-//           });
-//         },
-//         child: GestureDetector(
-//           onTap: () {
-//             showPopover(
-//                 context: context,
-//                 bodyBuilder: (context) => Center(
-//                         child: SelectableText(
-//                       '+2513325666',
-//                       style: Theme.of(context).textTheme.bodyLarge,
-//                     )),
-//                 height: 100,
-//                 width: 200,
-//                 backgroundColor: Theme.of(context).colorScheme.tertiary,
-//                 direction: PopoverDirection.top);
-//           },
-//           child: Image.asset(
-//             Theme.of(context).brightness == Brightness.dark
-//                 ? darkButton
-//                 : lightButton,
-//             scale: 1.5,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class AvatorImages extends StatelessWidget {
   const AvatorImages({
@@ -594,15 +537,18 @@ class AvatorImages extends StatelessWidget {
     return Column(
       children: [
         CircleAvatar(
-          radius: 50,
-          backgroundColor: avatorBgColors(context),
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Image.asset(
-              image,
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.black
-                  : Colors.white,
+          radius: 85,
+          child: CircleAvatar(
+            radius: 80,
+            backgroundColor: avatorBgColors(context),
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Image.asset(
+                image,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.black
+                    : Colors.white,
+              ),
             ),
           ),
         ),
@@ -653,56 +599,58 @@ class _ContactButtonState extends State<ContactButton> {
         },
 
         // overlayColor: const MaterialStatePropertyAll(Colors.green),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: Theme.of(context).brightness == Brightness.dark
-                ? isHovered
-                    ? const LinearGradient(
-                        colors: [
-                          Color(0xffF8C30C),
-                          Color(0xffF8C30C),
-                        ],
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomLeft,
-                      )
-                    : const LinearGradient(
-                        // transform: GradientRotation(-6.8),
-                        colors: [
+        child: AnimatedSwitcher(
+          duration: const Duration(seconds: 1),
+          child: Container(
+            key: Key(Theme.of(context).brightness.toString()),
+            decoration: BoxDecoration(
+              gradient: Theme.of(context).brightness == Brightness.dark
+                  ? isHovered
+                      ? const LinearGradient(
+                          colors: [
                             Color(0xffF8C30C),
-                            Color.fromARGB(0, 0, 0, 0),
+                            Color(0xffF8C30C),
                           ],
-                        begin: Alignment.bottomLeft,
-                        end: Alignment.topRight)
-                : isHovered
-                    ? const LinearGradient(
-                        colors: [
-                          Color(0xff2ADAFF),
-                          Color(0xff2ADAFF),
-                        ],
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomLeft,
-                      )
-                    : const LinearGradient(
-                        // transform: GradientRotation(-6.8),
-                        colors: [
+                          begin: Alignment.topRight,
+                          end: Alignment.bottomLeft,
+                        )
+                      : const LinearGradient(
+                          // transform: GradientRotation(-6.8),
+                          colors: [
+                              Color(0xffF8C30C),
+                              Color.fromARGB(0, 0, 0, 0),
+                            ],
+                          begin: Alignment.bottomLeft,
+                          end: Alignment.topRight)
+                  : isHovered
+                      ? const LinearGradient(
+                          colors: [
                             Color(0xff2ADAFF),
-                            Color.fromARGB(0, 0, 0, 0),
+                            Color(0xff2ADAFF),
                           ],
-                        begin: Alignment.bottomLeft,
-                        end: Alignment.topRight),
-            borderRadius: BorderRadius.circular(50),
-          ),
-          // height: 100,
-          // width: 300,
-          child: Padding(
-            padding: const EdgeInsets.all(3.0),
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.black
-                      : const Color(0xff094762),
-                  borderRadius: BorderRadius.circular(50)),
-              child: widget.child,
+                          begin: Alignment.topRight,
+                          end: Alignment.bottomLeft,
+                        )
+                      : const LinearGradient(
+                          // transform: GradientRotation(-6.8),
+                          colors: [
+                              Color(0xff2ADAFF),
+                              Color.fromARGB(0, 0, 0, 0),
+                            ],
+                          begin: Alignment.bottomLeft,
+                          end: Alignment.topRight),
+              borderRadius: BorderRadius.circular(50),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.black
+                        : const Color(0xff094762),
+                    borderRadius: BorderRadius.circular(50)),
+                child: widget.child,
+              ),
             ),
           ),
         ),
@@ -711,87 +659,207 @@ class _ContactButtonState extends State<ContactButton> {
   }
 }
 
-class MobileAppBar extends StatefulWidget {
-  const MobileAppBar(
-      {super.key, this.scaffoldKey, required this.menuOverlayController});
-  final scaffoldKey;
-  final OverlayPortalController menuOverlayController;
+// class MobileAppBar extends StatefulWidget {
+//   const MobileAppBar(
+//       {super.key,  required this.menuOverlayController});
+//   // final scaffoldKey;
+//   final OverlayPortalController menuOverlayController;
 
-  @override
-  State<MobileAppBar> createState() => MobileAppBarState();
-}
+//   @override
+//   State<MobileAppBar> createState() => MobileAppBarState();
+// }
 
-class MobileAppBarState extends State<MobileAppBar>
-    with TickerProviderStateMixin {
-  late AnimationController _controller;
-  bool _isPlaying = false;
+// class MobileAppBarState extends State<MobileAppBar>
+//     with TickerProviderStateMixin {
+//   late AnimationController _controller;
+//   bool _isPlaying = false;
 
-  @override
-  void initState() {
-    _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 500));
-    super.initState();
-  }
+//   @override
+//   void initState() {
+//     _controller = AnimationController(
+//         vsync: this, duration: const Duration(milliseconds: 500));
+//     super.initState();
+//   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+//   @override
+//   void dispose() {
+//     _controller.dispose();
+//     super.dispose();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return AppBar(
+//       backgroundColor: Colors.transparent,
+//       elevation: 0,
+//       title: IconButton(
+//         iconSize: 40,
+//         hoverColor: const Color(0xff1e1e24),
+//         icon: Image.asset(mainLogo),
+//         onPressed: () {
+//           Navigator.of(context).pushNamed('/');
+//         },
+//       ),
+//       flexibleSpace: ClipRect(
+//         child: BackdropFilter(
+//           filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+//           child: Container(
+//             color: const Color.fromARGB(25, 0, 0, 0),
+//           ),
+//         ),
+//       ),
+//       actions: [
+//         OverlayPortal(
+//           overlayChildBuilder: (context) {
+//             return Align(
+//               alignment: Alignment.topRight,
+//               child: Padding(
+//                 padding: const EdgeInsets.all(8.0),
+//                 child: GestureDetector(
+//                     onTap: () {
+//                       if (widget.scaffoldKey.currentState!.isEndDrawerOpen &&
+//                           _isPlaying == true) {
+//                         widget.scaffoldKey.currentState!.closeEndDrawer();
+//                         _controller.reverse();
+//                         _isPlaying = false;
+//                         //close drawer, if drawer is open
+//                       } else {
+//                         widget.scaffoldKey.currentState!.openEndDrawer();
+//                         _isPlaying = true;
+//                         _controller.forward();
+//                         //open drawer, if drawer is closed
+//                       }
+//                     },
+//                     child: AnimatedIcon(
+//                         icon: AnimatedIcons.menu_close, progress: _controller)),
+//               ),
+//             );
+//           },
+//           controller: widget.menuOverlayController,
+//         )
+//       ],
+//     );
+//   }
+// }
+
+class InfoList extends StatelessWidget {
+  const InfoList({
+    super.key,
+    required this.icn,
+    required this.title,
+    required this.text,
+  });
+
+  final IconData icn;
+  final String title;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      title: IconButton(
-        iconSize: 40,
-        hoverColor: const Color(0xff1e1e24),
-        icon: Image.asset(
-          'assets/images/materials/main_logo_02.png',
-        ),
-        onPressed: () {
-          Navigator.of(context).pushNamed('/');
-        },
-      ),
-      flexibleSpace: ClipRect(
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-          child: Container(
-            color: const Color.fromARGB(25, 0, 0, 0),
+    return Row(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: const Color(
+                0xffa2a2a2,
+              ),
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(
+              color: Color(
+                isDarkTheme(context) ? 0xffa2a2a2 : 0xFF434343,
+              ),
+              icn,
+              size: 30,
+            ),
           ),
         ),
-      ),
-      actions: [
-        OverlayPortal(
-          overlayChildBuilder: (context) {
-            return Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GestureDetector(
-                    onTap: () {
-                      if (widget.scaffoldKey.currentState!.isEndDrawerOpen &&
-                          _isPlaying == true) {
-                        widget.scaffoldKey.currentState!.closeEndDrawer();
-                        _controller.reverse();
-                        _isPlaying = false;
-                        //close drawer, if drawer is open
-                      } else {
-                        widget.scaffoldKey.currentState!.openEndDrawer();
-                        _isPlaying = true;
-                        _controller.forward();
-                        //open drawer, if drawer is closed
-                      }
-                    },
-                    child: AnimatedIcon(
-                        icon: AnimatedIcons.menu_close, progress: _controller)),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 20,
+                  height: 0,
+                  color: Color(
+                    isDarkTheme(context) ? 0xffa2a2a2 : 0xFF434343,
+                  ),
+                ),
               ),
-            );
-          },
-          controller: widget.menuOverlayController,
+              SelectableText(
+                text,
+                style: TextStyle(
+                    color: Color(
+                      isDarkTheme(context) ? 0xffa2a2a2 : 0xFF434343,
+                    ),
+                    fontSize: 20,
+                    height: 1.5,
+                    fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
         )
       ],
+    );
+  }
+}
+
+class DescriptionContainer extends StatelessWidget {
+  const DescriptionContainer({
+    super.key,
+    required this.child,
+  });
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+      decoration: BoxDecoration(
+        boxShadow: const [
+          BoxShadow(
+            color: Color.fromARGB(192, 0, 0, 0),
+            offset: Offset(5, 5),
+            spreadRadius: 2,
+            blurRadius: 20,
+          )
+        ],
+        // border: Border.all(
+        //   color: Colors.white,
+        // ),
+        color: isDarkTheme(context)
+            ? const Color(0xff1E1E24)
+            : const Color(0xff0B394E),
+      ),
+      duration: const Duration(seconds: 1),
+      child: Center(
+        child: child,
+      ),
+    );
+  }
+}
+
+class BackgroundImage01 extends StatelessWidget {
+  const BackgroundImage01({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSwitcher(
+      duration: const Duration(seconds: 1),
+      // key: Key(Theme.of(context).brightness.toString()),
+      child: Image.asset(
+        key: Key(Theme.of(context).brightness.toString()),
+        isDarkTheme(context)
+            ? 'assets/images/materials/bg_002.png'
+            : 'assets/images/materials/blue_bg_002.png',
+      ),
     );
   }
 }

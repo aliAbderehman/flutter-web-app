@@ -122,7 +122,7 @@ class _MoreButtonState extends State<MoreButton> {
                     ),
                   ),
                   AnimatedSwitcher(
-                    duration: Duration(seconds: 1),
+                    duration: const Duration(seconds: 1),
                     child: Icon(widget.isDropped == false
                         ? Icons.arrow_drop_down_outlined
                         : Icons.arrow_drop_up_outlined),
@@ -167,7 +167,7 @@ class FoldedCon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
       child: Container(
         width: width,
         // height: width * 0.2,
@@ -199,7 +199,6 @@ class FoldedCon extends StatelessWidget {
                       style: Theme.of(context).textTheme.displayLarge,
                       textAlign: TextAlign.end,
                       maxLines: 1,
-                      textScaleFactor: ScaleSize.textScaleFactor(context),
                     ),
                   ),
                   SizedBox(
@@ -210,7 +209,6 @@ class FoldedCon extends StatelessWidget {
                       overflow: TextOverflow.fade,
                       textAlign: TextAlign.end,
                       style: Theme.of(context).textTheme.displaySmall,
-                      textScaleFactor: ScaleSize.textScaleFactor(context),
                     ),
                   ),
                 ],
@@ -272,8 +270,6 @@ class UnfodedCon extends StatelessWidget {
                     title,
                     style: Theme.of(context).textTheme.displayLarge,
                     textAlign: TextAlign.end,
-                    // maxLines: 1,
-                    textScaleFactor: ScaleSize.textScaleFactor(context),
                   ),
                 ),
                 SizedBox(
@@ -284,7 +280,6 @@ class UnfodedCon extends StatelessWidget {
                     overflow: TextOverflow.fade,
                     textAlign: TextAlign.end,
                     style: Theme.of(context).textTheme.displaySmall,
-                    textScaleFactor: ScaleSize.textScaleFactor(context),
                   ),
                 )
               ],

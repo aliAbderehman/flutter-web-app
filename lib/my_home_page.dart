@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:uhh/platform/desktop.dart';
-import 'package:uhh/platform/mobile.dart';
+import 'package:uhh/platform/desktop/desktop.dart';
+import 'package:uhh/platform/mobile/mobile.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -11,15 +11,15 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool isDesktop(BuildContext context) =>
-      MediaQuery.of(context).size.width >= 665;
+      MediaQuery.of(context).size.width >= 500;
   bool isMobile(BuildContext context) =>
-      MediaQuery.of(context).size.width < 665;
+      MediaQuery.of(context).size.width < 500;
   @override
   Widget build(BuildContext context) {
     if (isDesktop(context)) {
-      return DesktopBody();
+      return const DesktopBody();
     } else {
-      return MobileBody();
+      return const MobileBody();
     }
   }
 }
