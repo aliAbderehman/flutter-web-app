@@ -38,7 +38,6 @@ class _ContactUsState extends State<ContactUs> with TickerProviderStateMixin {
         screenWidth: screenWidth,
         overlayController: _overlayController,
         socialMediasController: _socialMediasController);
-    print(screenWidth);
 
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
@@ -67,14 +66,10 @@ class _ContactUsState extends State<ContactUs> with TickerProviderStateMixin {
                     AnimatedSwitcher(
                       duration: const Duration(seconds: 1),
                       child: Image.asset(
-                        // width: double.infinity,
-
                         key: Key(Theme.of(context).brightness.toString()),
                         isDarkTheme(context)
                             ? '${materials}component_8.png'
                             : '${materials}component_4.png',
-
-                        // width: double.infinity,
                         fit: BoxFit.fitWidth,
                       ),
                     ),

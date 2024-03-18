@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:uhh/contact_us_page.dart';
 import 'package:uhh/platform/abouts.dart';
 import 'package:uhh/platform/contact_us.dart';
+import 'package:uhh/platform/desktop/desktop.dart';
 import 'package:uhh/platform/our_works.dart';
 import 'package:uhh/theme/theme.dart';
 import 'package:uhh/theme/theme_provider.dart';
-
-import 'my_home_page.dart';
 
 void main() {
   runApp(
@@ -35,7 +33,7 @@ class MyApp extends StatelessWidget {
           // home: const ContactUs(),
           initialRoute: '/',
           routes: {
-            '/': (context) => const MyHomePage(),
+            '/': (context) => const DesktopBody(),
             '/about': (context) => const Abouts(),
             '/contact_us_page': (context) => const ContactUs(),
 

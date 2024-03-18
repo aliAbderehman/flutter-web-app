@@ -1,6 +1,7 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:uhh/constants.dart';
+import 'package:uhh/costom_materials/footer.dart';
 import 'package:uhh/platform/materials.dart';
 import 'package:uhh/swiper_list.dart';
 
@@ -11,6 +12,7 @@ class DesktopBodyBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Stack(
       children: [
         const BackgroundImage01(),
@@ -21,6 +23,7 @@ class DesktopBodyBuilder extends StatelessWidget {
             const SizedBox(height: 10),
             _buildContactButton(context),
             _buildWelcomeMessage(context),
+            const Text('Trusted By 100+ companies'),
             _buildAnimatedSwitcher(
               imageAsset: isDarkTheme(context)
                   ? 'assets/images/materials/component_8.png'
@@ -29,11 +32,43 @@ class DesktopBodyBuilder extends StatelessWidget {
               description: dtWhoWeTxt,
               context: context,
             ),
-            const Text('Trusted By 100+ companies'),
-            _buildWhyChooseUsWidget(context),
+            _buildResellerWidget(context),
+            _buildWhyChooseUsWidget(context, screenWidth),
           ],
         ),
       ],
+    );
+  }
+
+  Padding _buildResellerWidget(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 0, right: 0, top: 50, bottom: 20),
+      child: SizedBox(
+        height: 200,
+        width: double.infinity,
+        child: Container(
+            color: isDarkTheme(context)
+                ? const Color(0xFF333636)
+                : const Color(0xff4685a4),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 200),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    'Authorized Reseler Of',
+                    style: TextStyle(
+                        color: isDarkTheme(context)
+                            ? const Color(0xffa2a2a2)
+                            : const Color.fromARGB(255, 214, 214, 214),
+                        fontSize: 35,
+                        fontFamily: 'MetropolisReg'),
+                  ),
+                  const FargoAndFujitsu(),
+                ],
+              ),
+            )),
+      ),
     );
   }
 
@@ -41,22 +76,24 @@ class DesktopBodyBuilder extends StatelessWidget {
     BuildContext context,
   ) {
     SwiperController swiperController = SwiperController();
-    return FittedBox(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 50),
-        child: SizedBox(
-          height: 300,
-          width: 1200,
-          child: FocusableActionDetector(
-            mouseCursor: SystemMouseCursors.basic,
-            child: MouseRegion(
-              onEnter: (event) {
-                swiperController.stopAutoplay();
-              },
-              onExit: (event) {
-                swiperController.startAutoplay();
-              },
+    return FocusableActionDetector(
+      mouseCursor: SystemMouseCursors.click,
+      child: MouseRegion(
+        onHover: (event) {
+          swiperController.stopAutoplay();
+        },
+        onExit: (event) {
+          swiperController.startAutoplay();
+        },
+        child: FittedBox(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 50),
+            child: SizedBox(
+              height: 300,
+              width: 1200,
               child: Swiper(
+                autoplayDelay: 6000,
+                autoplayDisableOnInteraction: true,
                 controller: swiperController,
                 duration: 1000,
                 autoplay: true,
@@ -141,7 +178,7 @@ class DesktopBodyBuilder extends StatelessWidget {
     );
   }
 
-  Widget _buildWhyChooseUsWidget(BuildContext context) {
+  Widget _buildWhyChooseUsWidget(BuildContext context, double screenWidth) {
     return SizedBox(
       height: 1000,
       width: double.infinity,
@@ -214,55 +251,58 @@ class DesktopBodyBuilder extends StatelessWidget {
                     width: 50,
                   ),
                 ),
-                Flexible(
-                  flex: 1,
-                  fit: FlexFit.loose,
-                  child: SizedBox(
-                    width: 800,
-                    child: Text.rich(
-                      TextSpan(
-                        text:
-                            'Choose Noon: Elevating Excellence, Every Time.\n',
-                        style: const TextStyle(
-                          fontSize: 40,
-                          fontFamily: 'MetropolisReg',
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xfff3f3f3),
-                        ),
-                        children: [
-                          const TextSpan(
-                            text:
-                                'Committed to staying ahead of the curve, Noon continuously seeks new products and trends to meet evolving market demands, ensuring you\'re always at the forefront of innovation.\n',
-                            style: TextStyle(
-                                fontSize: 20, color: Color(0xfff3f3f3)),
-                          ),
-                          WidgetSpan(
-                              child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(40.0),
-                              child: SizedBox(
-                                height: 60,
-                                width: 120,
-                                child: ContactButton(
-                                    child: const Center(
-                                      child: Text(
-                                        'More',
-                                        style: TextStyle(
-                                            fontFamily: 'MetropolisReg',
-                                            color: Colors.white),
-                                      ),
-                                    ),
-                                    onTap: () {
-                                      Navigator.pushNamed(context, '/about');
-                                    }),
+                screenWidth > 800
+                    ? Flexible(
+                        flex: 1,
+                        fit: FlexFit.loose,
+                        child: SizedBox(
+                          width: 800,
+                          child: Text.rich(
+                            TextSpan(
+                              text:
+                                  'Choose $companyNameShort: Elevating Excellence, Every Time.\n',
+                              style: const TextStyle(
+                                fontSize: 40,
+                                fontFamily: 'MetropolisReg',
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xfff3f3f3),
                               ),
+                              children: [
+                                const TextSpan(
+                                  text:
+                                      'Committed to staying ahead of the curve, $companyNameShort continuously seeks new products and trends to meet evolving market demands, ensuring you\'re always at the forefront of innovation.\n',
+                                  style: TextStyle(
+                                      fontSize: 20, color: Color(0xfff3f3f3)),
+                                ),
+                                WidgetSpan(
+                                    child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(40.0),
+                                    child: SizedBox(
+                                      height: 60,
+                                      width: 120,
+                                      child: ContactButton(
+                                          child: const Center(
+                                            child: Text(
+                                              'More',
+                                              style: TextStyle(
+                                                  fontFamily: 'MetropolisReg',
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            Navigator.pushNamed(
+                                                context, '/about');
+                                          }),
+                                    ),
+                                  ),
+                                ))
+                              ],
                             ),
-                          ))
-                        ],
-                      ),
-                    ),
-                  ),
-                )
+                          ),
+                        ),
+                      )
+                    : const SizedBox(),
               ],
             ),
           ),
@@ -276,8 +316,6 @@ class DesktopBodyBuilder extends StatelessWidget {
     required String imageAsset,
     required String title,
     required String description,
-    String buttonText = '',
-    VoidCallback? onPressed,
     required BuildContext context,
   }) {
     return SizedBox(

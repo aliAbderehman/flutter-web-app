@@ -537,27 +537,26 @@ class AvatorImages extends StatelessWidget {
     return Column(
       children: [
         CircleAvatar(
-          radius: 85,
-          child: CircleAvatar(
-            radius: 80,
-            backgroundColor: avatorBgColors(context),
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Image.asset(
-                image,
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.black
-                    : Colors.white,
-              ),
+          radius: 60,
+          backgroundColor: avatorBgColors(context),
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Image.asset(
+              image,
+              color: isDarkTheme(context)
+                  ? const Color.fromARGB(255, 34, 34, 34)
+                  : const Color.fromARGB(255, 194, 235, 255),
             ),
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 20),
-          child: SelectableText(
-            title,
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
+          child: SelectableText(title,
+              style: TextStyle(
+                color: isDarkTheme(context)
+                    ? const Color(0xffa2a2a2)
+                    : const Color.fromARGB(255, 214, 214, 214),
+              )),
         ),
       ],
     );

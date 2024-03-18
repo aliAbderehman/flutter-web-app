@@ -1,17 +1,11 @@
 import 'dart:ui';
 
 import 'package:animate_icons/animate_icons.dart';
-import 'package:card_swiper/card_swiper.dart';
 
 import 'package:fab_circular_menu_plus/fab_circular_menu_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:popover/popover.dart';
-import 'package:provider/provider.dart';
-import 'package:uhh/constants.dart';
 import 'package:uhh/costom_materials/mobile_menu.dart';
 
-import '../../swiper_list.dart';
-import '../../theme/theme_provider.dart';
 import '../materials.dart';
 
 final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -31,7 +25,6 @@ class _MobileBodyState extends State<MobileBody> with TickerProviderStateMixin {
   final OverlayPortalController contactOverLayController =
       OverlayPortalController()..show();
 
-  bool _isPlaying = false;
   late AnimationController _controller;
 
   @override
@@ -55,7 +48,6 @@ class _MobileBodyState extends State<MobileBody> with TickerProviderStateMixin {
       onEndDrawerChanged: (isOpened) {
         if (!isOpened) {
           _controller.reverse();
-          _isPlaying = false;
         }
       },
 

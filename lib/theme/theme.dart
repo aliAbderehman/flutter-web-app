@@ -38,11 +38,11 @@ ThemeData lightMode = ThemeData(
     ),
     labelMedium:
         TextStyle(fontSize: 20, color: Color.fromARGB(255, 162, 162, 162)),
-    bodySmall: TextStyle(
-      fontFamily: 'MetropolisReg',
-      fontSize: 25,
-      color: Color(0xff114052),
-    ),
+    // bodySmall: TextStyle(
+    //   fontFamily: 'MetropolisReg',
+    //   fontSize: 25,
+    //   color: Color(0xff114052),
+    // ),
     bodyMedium: TextStyle(
       color: Color(0xff114052),
       fontFamily: 'MetropolisReg',

@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:uhh/costom_materials/footer.dart';
 import 'package:uhh/costom_materials/mobile_menu.dart';
 
 import '../constants.dart';
-import 'card.dart';
 import 'materials.dart';
 
 bool isExpanded = false;
@@ -49,9 +46,7 @@ class _OurWorksState extends State<OurWorks> with TickerProviderStateMixin {
         screenWidth: screenWidth,
         overlayController: _overlayController,
         socialMediasController: _socialMediasController);
-    // Construct the scaffold containing the desktop UI components.
 
-    print(screenWidth);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       extendBodyBehindAppBar: true,

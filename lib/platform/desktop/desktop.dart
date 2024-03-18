@@ -65,19 +65,25 @@ class _DesktopBodyState extends State<DesktopBody>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Expanded(
+                  Flexible(
                     child: AvatorImages(
                       image: trust,
                       title: 'Trust',
                     ),
                   ),
-                  Expanded(
+                  SizedBox(
+                    width: 40,
+                  ),
+                  Flexible(
                     child: AvatorImages(
                       image: quality,
                       title: 'Quality',
                     ),
                   ),
-                  Expanded(
+                  SizedBox(
+                    width: 40,
+                  ),
+                  Flexible(
                     child: AvatorImages(
                       image: mobility,
                       title: 'Mobility',

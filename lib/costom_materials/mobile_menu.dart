@@ -192,10 +192,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.transparent,
-      elevation: 0,
+      elevation: 3,
       leading: IconButton(
         iconSize: 20,
-        hoverColor: const Color(0xff1e1e24),
+        hoverColor: Colors.transparent,
         icon: Image.asset(mainLogo),
         onPressed: () {
           Navigator.of(context).pushNamed('/');
@@ -206,8 +206,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
           child: Container(
             color: isDarkTheme(context)
-                ? const Color.fromARGB(79, 0, 0, 0)
-                : const Color.fromARGB(73, 0, 0, 0),
+                ? const Color.fromARGB(50, 0, 0, 0)
+                : const Color.fromARGB(29, 5, 119, 212),
           ),
         ),
       ),
