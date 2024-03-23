@@ -3,9 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:popover/popover.dart';
 import 'package:provider/provider.dart';
-import 'package:uhh/constants.dart';
-import 'package:uhh/platform/materials.dart';
-import 'package:uhh/theme/theme_provider.dart';
+import 'package:dmd_web_01/constants.dart';
+import 'package:dmd_web_01/platform/materials.dart';
+import 'package:dmd_web_01/theme/theme_provider.dart';
 
 class MobileMenu extends StatelessWidget {
   const MobileMenu({
@@ -17,37 +17,33 @@ class MobileMenu extends StatelessWidget {
     return Container(
       color: Colors.transparent,
       child: Padding(
-        padding: const EdgeInsets.only(top: 40),
+        padding: const EdgeInsets.only(top: 50, left: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Consumer<ThemeProvider>(builder: (context, provider, child) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Switch(
-                  thumbIcon: MaterialStatePropertyAll(Icon(
-                      Theme.of(context).brightness == Brightness.light
-                          ? Icons.light_mode
-                          : Icons.dark_mode)),
-                  activeColor: const Color.fromARGB(255, 113, 113, 113),
-                  activeTrackColor: Theme.of(context).colorScheme.background,
-                  inactiveThumbColor: const Color(0xff15688C),
-                  inactiveTrackColor: const Color(0xff01212E),
-                  trackOutlineColor: MaterialStatePropertyAll(
-                    Theme.of(context).colorScheme.secondary,
-                  ),
-                  onChanged: (bool value) {
-                    provider.changeTheme(value ? 'dark' : 'light');
-
-                    val = value;
-                  },
-                  value: val,
+              return Switch(
+                thumbIcon: MaterialStatePropertyAll(Icon(
+                    Theme.of(context).brightness == Brightness.light
+                        ? Icons.light_mode
+                        : Icons.dark_mode)),
+                activeColor: const Color.fromARGB(255, 113, 113, 113),
+                activeTrackColor: Theme.of(context).colorScheme.background,
+                inactiveThumbColor: const Color(0xff15688C),
+                inactiveTrackColor: const Color(0xff01212E),
+                trackOutlineColor: MaterialStatePropertyAll(
+                  Theme.of(context).colorScheme.secondary,
                 ),
+                onChanged: (bool value) {
+                  provider.changeTheme(value ? 'dark' : 'light');
+
+                  val = value;
+                },
+                value: val,
               );
             }),
-            const Divider(
-              indent: 30,
-              endIndent: 30,
+            const SizedBox(
+              height: 10,
             ),
             HeaderTextButton(
               title: 'Home',
@@ -57,9 +53,8 @@ class MobileMenu extends StatelessWidget {
               },
               // icon: Icons.info_outline_rounded,
             ),
-            const Divider(
-              indent: 30,
-              endIndent: 30,
+            const SizedBox(
+              height: 10,
             ),
             HeaderTextButton(
               title: 'About',
@@ -69,9 +64,8 @@ class MobileMenu extends StatelessWidget {
               },
               // icon: Icons.info_outline_rounded,
             ),
-            const Divider(
-              indent: 30,
-              endIndent: 30,
+            const SizedBox(
+              height: 10,
             ),
             HeaderTextButton(
               title: 'Language',
@@ -86,9 +80,8 @@ class MobileMenu extends StatelessWidget {
               },
               // icon: Icons.language,
             ),
-            const Divider(
-              indent: 30,
-              endIndent: 30,
+            const SizedBox(
+              height: 10,
             ),
             HeaderTextButton(
               title: 'Our Works',
@@ -98,21 +91,17 @@ class MobileMenu extends StatelessWidget {
               },
               // icon: Icons.work,
             ),
-            const Divider(
-              indent: 30,
-              endIndent: 30,
+            const SizedBox(
+              height: 10,
             ),
             SizedBox(
-              width: 150,
+              width: 120,
               child: ContactButton(
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Center(
-                        child: Text(
-                      'CONTACTS',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    )),
-                  ),
+                  child: const Center(
+                      child: Text(
+                    'CONTACTS',
+                    style: TextStyle(color: Colors.white, fontSize: 14),
+                  )),
                   onTap: () {
                     Navigator.pushNamed(context, '/contact_us_page');
                   }),
@@ -203,7 +192,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       flexibleSpace: ClipRect(
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+          filter: ImageFilter.blur(
+            sigmaX: 5,
+            sigmaY: 5,
+          ),
+          // blendMode: BlendMode.colorBurn,
           child: Container(
             color: isDarkTheme(context)
                 ? const Color.fromARGB(50, 0, 0, 0)

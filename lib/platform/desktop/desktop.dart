@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:uhh/costom_materials/footer.dart';
-import 'package:uhh/costom_materials/mobile_menu.dart';
-import 'package:uhh/platform/desktop/desktop_body_builder.dart';
+import 'package:dmd_web_01/costom_materials/footer.dart';
+import 'package:dmd_web_01/costom_materials/mobile_menu.dart';
+import 'package:dmd_web_01/platform/desktop/desktop_body_builder.dart';
 
 import '../materials.dart';
 import '../../../constants.dart';
@@ -47,53 +47,57 @@ class _DesktopBodyState extends State<DesktopBody>
           _controller.reverse();
         }
       },
-      endDrawer: screenWidth < 750
+      endDrawer: screenWidth < 760
           ? CustomEndDrawer(
               screenWidth: screenWidth,
             )
           : null,
-      appBar: screenWidth < 750 ? CustomAppBar(controller: _controller) : null,
+      appBar: screenWidth < 760 ? CustomAppBar(controller: _controller) : null,
       //
       body: SingleChildScrollView(
         child: Column(
           children: [
             SocialMedias(socialMediasController: _socialMediasController),
+
             const DesktopBodyBuilder(),
 
             const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 100),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Flexible(
-                    child: AvatorImages(
-                      image: trust,
-                      title: 'Trust',
+              padding: EdgeInsets.only(left: 20, right: 20, top: 150),
+              child: SizedBox(
+                width: 850,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Flexible(
+                      child: AvatorImages(
+                        image: trust,
+                        title: 'Trust',
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 40,
-                  ),
-                  Flexible(
-                    child: AvatorImages(
-                      image: quality,
-                      title: 'Quality',
+                    SizedBox(
+                      width: 40,
                     ),
-                  ),
-                  SizedBox(
-                    width: 40,
-                  ),
-                  Flexible(
-                    child: AvatorImages(
-                      image: mobility,
-                      title: 'Mobility',
+                    Flexible(
+                      child: AvatorImages(
+                        image: quality,
+                        title: 'Quality',
+                      ),
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      width: 40,
+                    ),
+                    Flexible(
+                      child: AvatorImages(
+                        image: mobility,
+                        title: 'Mobility',
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
 
-            const SizedBox(height: 200),
+            const SizedBox(height: 50),
             HeaderActions(
               overlayController: _overlayController,
             ),

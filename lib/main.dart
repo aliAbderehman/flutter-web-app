@@ -1,11 +1,12 @@
+import 'package:dmd_web_01/about_us.dart';
+import 'package:dmd_web_01/contact_us.dart';
+import 'package:dmd_web_01/home.dart';
+import 'package:dmd_web_01/our_works.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:uhh/platform/abouts.dart';
-import 'package:uhh/platform/contact_us.dart';
-import 'package:uhh/platform/desktop/desktop.dart';
-import 'package:uhh/platform/our_works.dart';
-import 'package:uhh/theme/theme.dart';
-import 'package:uhh/theme/theme_provider.dart';
+
+import 'package:dmd_web_01/theme/theme.dart';
+import 'package:dmd_web_01/theme/theme_provider.dart';
 
 void main() {
   runApp(
@@ -26,21 +27,17 @@ class MyApp extends StatelessWidget {
       builder: (context, provider, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
+          title: 'DMD',
           theme: lightMode,
           darkTheme: darkMode,
           themeMode: provider.themeMode,
           // home: const ContactUs(),
           initialRoute: '/',
           routes: {
-            '/': (context) => const DesktopBody(),
-            '/about': (context) => const Abouts(),
+            '/': (context) => const MyHomePage(),
+            '/about': (context) => const AboutUsPage(),
             '/contact_us_page': (context) => const ContactUs(),
-
-            // '/mobile_contact_us_page': (context) => const MobileContactUs(),
             '/our_work_page': (context) => const OurWorks(),
-
-            // '/contact_us': (context) => const ContactUs(),
           },
         );
       },

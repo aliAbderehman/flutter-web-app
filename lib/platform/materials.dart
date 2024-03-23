@@ -1,7 +1,8 @@
 import 'package:blurrycontainer/blurrycontainer.dart';
+import 'package:dmd_web_01/costom_materials/footer.dart';
 import 'package:popover/popover.dart';
-import 'package:uhh/constants.dart';
-import 'package:uhh/theme/theme_provider.dart';
+import 'package:dmd_web_01/constants.dart';
+import 'package:dmd_web_01/theme/theme_provider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -53,7 +54,7 @@ class _MainHeaderState extends State<MainHeader> {
             duration: const Duration(seconds: 1),
             child: BlurryContainer(
               key: Key(Theme.of(context).brightness.toString()),
-              height: 50,
+              // height: 50,
               // width: 400,
               elevation: 3,
               blur: 4,
@@ -132,17 +133,18 @@ class _MainHeaderState extends State<MainHeader> {
                     },
                     // icon: Icons.work,
                   ),
-                  ContactButton(
-                      child: const Padding(
-                        padding: EdgeInsets.all(5.0),
-                        child: Text(
-                          'CONTACTS',
-                          style: TextStyle(color: Colors.white, fontSize: 15),
+                  SizedBox(
+                    height: 40,
+                    child: ContactButton(
+                        child: const Text(
+                          'CONTACT',
+                          style: TextStyle(
+                              color: Colors.white, fontSize: 12, height: 1),
                         ),
-                      ),
-                      onTap: () {
-                        Navigator.pushNamed(context, '/contact_us_page');
-                      })
+                        onTap: () {
+                          Navigator.pushNamed(context, '/contact_us_page');
+                        }),
+                  )
                 ],
               ),
             ),
@@ -222,29 +224,21 @@ class HeaderTextButton extends StatefulWidget {
 class _HeaderTextButtonState extends State<HeaderTextButton> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: TextButton(
-          style: TextButton.styleFrom(
-            foregroundColor: Theme.of(context).colorScheme.secondary,
-          ),
-          onPressed: widget.title == 'Language'
-              ? () {
-                  showPopover(
-                      context: context,
-                      bodyBuilder: (context) => const MenuItems(),
-                      height: 100,
-                      width: 150,
-                      backgroundColor:
-                          Theme.of(context).colorScheme.background);
-                }
-              : widget.isPressed,
-          child: Row(
-            children: [
-              Text(widget.title),
-            ],
-          )),
-    );
+    return TextButton(
+        style: TextButton.styleFrom(
+          foregroundColor: Theme.of(context).colorScheme.secondary,
+        ),
+        onPressed: widget.title == 'Language'
+            ? () {
+                showPopover(
+                    context: context,
+                    bodyBuilder: (context) => const MenuItems(),
+                    height: 100,
+                    width: 150,
+                    backgroundColor: Theme.of(context).colorScheme.background);
+              }
+            : widget.isPressed,
+        child: Text(widget.title));
   }
 }
 
@@ -513,14 +507,33 @@ class WhyUsDescription extends StatelessWidget {
           )
         ],
       ),
-      // textAlign: TextAlign.center,
-
-      // "Welcome to Noon Import and Export,\n"
-
-      // textAlign: TextAlign.center,
-      // style: Theme.of(context).textTheme.bodyMedium,
     );
   }
+}
+
+Padding buildResellerWidget(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 100),
+    child: SizedBox(
+      width: 600,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text(
+            'Authorized Reseler Of',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: isDarkTheme(context)
+                    ? const Color(0xffa2a2a2)
+                    : const Color.fromARGB(255, 123, 123, 123),
+                fontSize: 35,
+                fontFamily: 'MetropolisReg'),
+          ),
+          const FargoAndFujitsu(),
+        ],
+      ),
+    ),
+  );
 }
 
 class AvatorImages extends StatelessWidget {
@@ -549,17 +562,79 @@ class AvatorImages extends StatelessWidget {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 20),
-          child: SelectableText(title,
-              style: TextStyle(
-                color: isDarkTheme(context)
-                    ? const Color(0xffa2a2a2)
-                    : const Color.fromARGB(255, 214, 214, 214),
-              )),
-        ),
       ],
     );
+  }
+}
+
+class MoreButton extends StatefulWidget {
+  const MoreButton({super.key, this.onTap});
+  final Function()? onTap;
+
+  @override
+  State<MoreButton> createState() => _MoreButtonState();
+}
+
+class _MoreButtonState extends State<MoreButton> {
+  bool isHovered = false;
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+        color: Colors.transparent,
+        // borderOnForeground: false,
+        // elevation: 8.0,
+        // borderRadius: BorderRadius.circular(50.0),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(30),
+          onTap: widget.onTap,
+          // focusColor: Colors.transparent,
+          // splashColor: Colors.transparent,
+          // overlayColor: const MaterialStatePropertyAll(Colors.transparent),
+          highlightColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          onHover: (value) {
+            if (value) {
+              setState(() {
+                isHovered = true;
+              });
+            } else {
+              setState(() {
+                isHovered = false;
+              });
+            }
+          },
+          child: AnimatedSwitcher(
+            duration: const Duration(seconds: 1),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  border: Border.all(color: Colors.white, width: 1),
+                  borderRadius: BorderRadius.circular(30)),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Learn More',
+                      style: TextStyle(
+                        fontSize: 10,
+                        height: 0.5,
+                        color: Theme.of(context).colorScheme.tertiary,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const Icon(
+                      Icons.keyboard_arrow_down,
+                      size: 10,
+                      color: Colors.white,
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ));
   }
 }
 
@@ -599,7 +674,7 @@ class _ContactButtonState extends State<ContactButton> {
 
         // overlayColor: const MaterialStatePropertyAll(Colors.green),
         child: AnimatedSwitcher(
-          duration: const Duration(seconds: 1),
+          duration: const Duration(milliseconds: 250),
           child: Container(
             key: Key(Theme.of(context).brightness.toString()),
             decoration: BoxDecoration(
@@ -643,6 +718,8 @@ class _ContactButtonState extends State<ContactButton> {
             child: Padding(
               padding: const EdgeInsets.all(3.0),
               child: Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                     color: Theme.of(context).brightness == Brightness.dark
                         ? Colors.black
@@ -747,11 +824,13 @@ class InfoList extends StatelessWidget {
     required this.icn,
     required this.title,
     required this.text,
+    required this.isDesktop,
   });
 
   final IconData icn;
   final String title;
   final String text;
+  final bool isDesktop;
 
   @override
   Widget build(BuildContext context) {
@@ -772,7 +851,7 @@ class InfoList extends StatelessWidget {
                 isDarkTheme(context) ? 0xffa2a2a2 : 0xFF434343,
               ),
               icn,
-              size: 30,
+              size: isDesktop ? 30 : 15,
             ),
           ),
         ),
@@ -785,7 +864,7 @@ class InfoList extends StatelessWidget {
               Text(
                 title,
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: isDesktop ? 20 : 14,
                   height: 0,
                   color: Color(
                     isDarkTheme(context) ? 0xffa2a2a2 : 0xFF434343,
@@ -798,7 +877,7 @@ class InfoList extends StatelessWidget {
                     color: Color(
                       isDarkTheme(context) ? 0xffa2a2a2 : 0xFF434343,
                     ),
-                    fontSize: 20,
+                    fontSize: isDesktop ? 20 : 14,
                     height: 1.5,
                     fontWeight: FontWeight.bold),
               )
@@ -854,10 +933,13 @@ class BackgroundImage01 extends StatelessWidget {
       duration: const Duration(seconds: 1),
       // key: Key(Theme.of(context).brightness.toString()),
       child: Image.asset(
+        height: screenHeight(context) * 0.6,
+        width: double.infinity,
+        fit: BoxFit.cover,
         key: Key(Theme.of(context).brightness.toString()),
         isDarkTheme(context)
-            ? 'assets/images/materials/bg_002.png'
-            : 'assets/images/materials/blue_bg_002.png',
+            ? 'assets/images/materials/component_16.png'
+            : 'assets/images/materials/component_15.png',
       ),
     );
   }

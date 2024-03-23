@@ -1,50 +1,52 @@
 import 'package:flutter/material.dart';
 
-const String darkBgImage = 'assets/images/materials/dark_bg_11.png';
-const String lightBgImage = 'assets/images/materials/light_bg_11.png';
+//logo image path
+const String mainLogo = 'assets/images/logo/main_logo.png';
 
-const String mail = 'assets/images/materials/mail_02.png';
-
-const String darkBgImageSecondary = 'assets/images/materials/dark_bg_02.png';
-const String trust = 'assets/images/materials/trust.png';
-const String quality = 'assets/images/materials/quality.png';
-const String mobility = 'assets/images/materials/mobility.png';
-const String mainLogo = 'assets/images/logo/main_logo_02.png';
-const String containerBg = 'assets/images/materials/container_background.jpg';
-
-const String darkSecondary = 'assets/images/materials/dark_secondary_bg.png';
-const String lightSecondary = 'assets/images/materials/light_secondary_bg.png';
-const String aboutBg = 'assets/images/materials/about_bg.png';
-const String tileCoffee = 'assets/images/materials/coffee_01.png';
-const String tileMachines = 'assets/images/materials/machines_01.png';
-
-const String contactUsBgImgDark = 'assets/images/materials/noon.png';
-const String contactUsBgImgLight = 'assets/images/materials/light_bg.png';
-
-const String emailAddress = 'contacts@ankabootecks.com';
-const String webAddress = 'www.ankabootechs.com';
-const String materials = 'assets/images/materials/';
-const String tel = '+251 921 986 249';
-const String address = 'Addis Ababa, Ethiopia';
-const String companyName = 'DMD Import & Export';
+const String companyName = 'DMD Import & Whole Sale';
 const String companyNameShort = 'DMD';
 
+// social media links and address
+const String address = 'Addis Ababa, Ethiopia';
+const String tel = '+251 921 986 249';
+const String webAddress = 'www.ankabootechs.com';
+const String emailAddress = 'contacts@ankabootechs.com';
 final facebookUrl = Uri.parse('https://www.facebook.com/abderehman.ali');
 final telegramUrl = Uri.parse('https://t.me/Musab4');
 final whatsappUrl = Uri.parse('https://wa.link/0jqn7j');
 final instagramUrl = Uri.parse('https://www.instagram.com/abderehman.a/');
 final twitterUrl = Uri.parse('');
 
+const String darkBgImage = 'assets/images/materials/dark_bg_11.png';
+const String lightBgImage = 'assets/images/materials/light_bg_11.png';
+
+//Assets path
+const String mail = 'assets/images/materials/mail_02.png';
+const String darkBgImageSecondary = 'assets/images/materials/dark_bg_02.png';
+const String trust = 'assets/images/materials/trust.png';
+const String quality = 'assets/images/materials/quality.png';
+const String mobility = 'assets/images/materials/mobility.png';
+const String containerBg = 'assets/images/materials/container_background.jpg';
+const String darkSecondary = 'assets/images/materials/dark_secondary_bg.png';
+const String lightSecondary = 'assets/images/materials/light_secondary_bg.png';
+const String aboutBg = 'assets/images/materials/about_bg.png';
+const String tileCoffee = 'assets/images/materials/coffee_01.png';
+const String tileMachines = 'assets/images/materials/machines_01.png';
+const String contactUsBgImgDark = 'assets/images/materials/noon.png';
+const String contactUsBgImgLight = 'assets/images/materials/light_bg.png';
+
+const String materials = 'assets/images/materials/';
+
 //our works // // //
-const coffeTitle = 'Noon\'s Exquisite Ethiopian Coffee Exports\n';
-const coffeDescription =
-    'Embark on a journey through Ethiopia\'s rich coffee heritage with Noon, a distinguished exporter of Ethiopian coffee. Renowned for our commitment to quality, authenticity, and sustainability, we invite you to discover the extraordinary flavors and cultural significance of Ethiopian coffee through our exclusive selection.\n';
+const coffeeTitle = '$companyNameShort\'s Exquisite Ethiopian Coffee Exports\n';
+const coffeeDescription =
+    'Embark on a journey through Ethiopia\'s rich coffee heritage with $companyNameShort, a distinguished exporter of Ethiopian coffee. Renowned for our commitment to quality, authenticity, and sustainability, we invite you to discover the extraordinary flavors and cultural significance of Ethiopian coffee through our exclusive selection.\n';
 const itTitle = 'IT and Data Center Equipments\n';
-const itDesctiption =
-    'Revolutionize your business\'s IT infrastructure with Noon Import and Export\'s premium selection of servers and data center racks. As a trusted provider of top-tier IT solutions, we specialize in importing high-performance equipment designed to meet the demanding needs of modern enterprises.\n';
+const itDescription =
+    'Revolutionize your business\'s IT infrastructure with $companyNameShort Import and Export\'s premium selection of servers and data center racks. As a trusted provider of top-tier IT solutions, we specialize in importing high-performance equipment designed to meet the demanding needs of modern enterprises.\n';
 const machinesTitle = 'Electrical Equipments and Machineries\n';
 const machinesDescription =
-    'Powering Your World: Explore our curated collection of top-tier electrical equipment and appliances. From cutting-edge gadgets to essential home essentials, Noon ensures seamless functionality and unmatched performance for every need. Discover innovation, reliability, and efficiency at your fingertips.\n';
+    'Powering Your World: Explore our curated collection of top-tier electrical equipment and appliances. From cutting-edge gadgets to essential home essentials, $companyNameShort ensures seamless functionality and unmatched performance for every need. Discover innovation, reliability, and efficiency at your fingertips.\n';
 
 //desktop // // //
 
@@ -57,9 +59,9 @@ List<String> whyUsTxt = [
   'Competitive Pricing'
 ];
 const String dtWelcomeTxt =
-    'your premier destination for electrical appliances and machinery imports, coupled with the finest quality coffee exports. At Noon, we specialize in sourcing and delivering top-of-the-line electrical appliances and machinery from around the globe, catering to a diverse range of industries and businesses. Our extensive catalogue encompasses everything from cutting-edge electronics to robust industrial equipment, providing solutions that empower businesses to thrive in today\'s dynamic marketplace.';
+    'your premier destination for electrical appliances and machinery imports, coupled with the finest quality coffee exports. At $companyNameShort, we specialize in sourcing and delivering top-of-the-line electrical appliances and machinery from around the globe, catering to a diverse range of industries and businesses. Our extensive catalogue encompasses everything from cutting-edge electronics to robust industrial equipment, providing solutions that empower businesses to thrive in today\'s dynamic marketplace.';
 const String dtWhoWeTxt =
-    'At $companyNameShort, we are more than just a company; we are your strategic partner in success. With a commitment to excellence and innovation, we specialize in sourcing top-quality electrical appliances and machinery imports while also offering the finest coffee exports. Backed by years of industry expertise, Noon stands as a beacon of reliability, providing tailored solutions and unparalleled service to businesses worldwide. Our dedication to ethical sourcing practices, customer-centric approach, and relentless pursuit of excellence sets us apart, making Noon the preferred choice for businesses seeking quality, reliability, and unmatched service. Join us and experience the Noon difference today.';
+    'At $companyNameShort, we are more than just a company; we are your strategic partner in success. With a commitment to excellence and innovation, we specialize in sourcing top-quality electrical appliances and machinery imports while also offering the finest coffee exports. Backed by years of industry expertise, $companyNameShort stands as a beacon of reliability, providing tailored solutions and unparalleled service to businesses worldwide. Our dedication to ethical sourcing practices, customer-centric approach, and relentless pursuit of excellence sets us apart, making $companyNameShort the preferred choice for businesses seeking quality, reliability, and unmatched service. Join us and experience the $companyNameShort difference today.';
 
 //about us /// ///
 
@@ -152,3 +154,86 @@ BoxDecoration mainBoxDecoration(BuildContext context) => BoxDecoration(
         // fit: BoxFit.none,
       ),
     );
+
+double screenWidth(BuildContext context) {
+  return MediaQuery.of(context).size.width;
+}
+
+double screenHeight(BuildContext context) {
+  return MediaQuery.of(context).size.height;
+}
+
+class AboutUsTxt {
+  AboutUsTxt(
+      {required this.title,
+      required this.content,
+      this.imgPath,
+      this.position});
+  String title;
+  String content;
+  String? imgPath;
+  int? position;
+}
+
+List<AboutUsTxt> aboutUsTexts1 = [
+  AboutUsTxt(
+      title: 'Diverse Product Range: ',
+      content:
+          'From state-of-the-art servers and computer hardware to cutting-edge appliances and aromatic coffee blends, $companyNameShort offers a diverse range of products tailored to meet the needs of modern consumers and businesses.'),
+  AboutUsTxt(
+      title: 'Quality Assurance: ',
+      content:
+          'We prioritize quality at every stage of our operations. Whether it\'s sourcing products from reputable manufacturers or conducting rigorous quality checks, we ensure that every item that bears the $companyNameShort name meets the highest standards of excellence.'),
+  AboutUsTxt(
+      title: 'Global Reach: ',
+      content:
+          'With a strong presence in international markets, $companyNameShort is your gateway to a world of possibilities. Our global network of partners and distributors enables us to seamlessly connect with customers around the globe, delivering our products with speed, efficiency, and reliability.'),
+  AboutUsTxt(
+      title: 'Customer-Centric Approach: ',
+      content:
+          'At $companyNameShort, customer satisfaction is our top priority. We go above and beyond to understand our customers\' needs and provide personalized solutions that exceed their expectations. From prompt assistance to hassle-free returns, we\'re committed to making every interaction with $companyNameShort a positive experience.'),
+  //Our values
+];
+
+List<AboutUsTxt> aboutUsTexts2 = [
+  AboutUsTxt(
+      title: 'Integrity: ',
+      content:
+          'We conduct our business with honesty, transparency, and integrity, earning the trust and respect of our customers, partners, and stakeholders.'),
+  AboutUsTxt(
+      title: 'Innovation: ',
+      content:
+          'We embrace innovation as a driving force behind our success, continuously exploring new ideas and technologies to stay at the forefront of our industry.'),
+  AboutUsTxt(
+      title: 'Sustainability: ',
+      content:
+          'We are committed to sustainability and environmental responsibility, striving to minimize our ecological footprint and promote sustainable practices throughout our supply chain.'),
+];
+
+List<AboutUsTxt> ourWorksTxt = [
+  AboutUsTxt(
+    position: 1,
+    imgPath: '${materials}electrical_equipments.png',
+    title: 'Electrical Equipment',
+    content:
+        'From circuit breakers to wiring accessories, $companyNameShort is your one-stop destination for high-quality electrical equipment. We have supplied essential electrical components to residential, commercial, and industrial projects, ensuring safety, reliability, and efficiency.',
+  ),
+  AboutUsTxt(
+      position: 2,
+      imgPath: '${materials}component_12.png',
+      title: 'IT Solutions',
+      content:
+          'Our expertise in IT solutions extends to providing state-of-the-art servers, computer hardware, and networking equipment to businesses of all sizes. Whether it\'s optimizing data centers or enhancing network infrastructure, $companyNameShort delivers innovative solutions tailored to meet the evolving demands of the digital age.'),
+  AboutUsTxt(
+      position: 1,
+      imgPath: '${materials}appliance.png',
+      title: 'Appliances',
+      content:
+          'Transform your home with our range of stylish and functional appliances. From energy-efficient refrigerators to sleek kitchen gadgets, $companyNameShort offers a curated selection of appliances designed to enhance your everyday living experience.'),
+  AboutUsTxt(
+      position: 2,
+      imgPath: '${materials}coffe_03.png',
+      title: 'Coffee',
+      content:
+          'Indulge in the rich aroma and exquisite flavor of $companyNameShort\'s premium coffee blends. Sourced from the finest beans around the world and expertly roasted to perfection, our coffee delivers a sensory experience like no other. Whether you\'re a coffee connoisseur or a casual enthusiast, $companyNameShort has the perfect blend for you.'),
+];
